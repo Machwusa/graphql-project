@@ -1,0 +1,24 @@
+{
+  "name": "graphql-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Machwusa/graphql-project.git"
+  },
+  "author": "Boitshoko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Machwusa/graphql-project/issues"
+  },
+  "homepage": "https://github.com/Machwusa/graphql-project#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-graphql": "^0.11.0",
+    "graphql": "^15.3.0"
+  }
+}
