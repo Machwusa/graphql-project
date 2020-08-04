@@ -10,19 +10,19 @@ let userData = [
 ]
 
 let hobbiesData = [
-    {id:'1', title: 'Reading', description: 'I like books'},
-    {id:'2', title: 'Surfing internet', description: 'I like websites'},
-    {id:'3', title: 'Swimming', description: 'I like water'},
-    {id:'4', title: 'Football', description: 'I like kicking ball'},
-    {id:'5', title: 'Painting', description: 'I like making pictures from a blank canvas'},
+    {id:'1', title: 'Reading', description: 'I like books', userID: '1'},
+    {id:'2', title: 'Surfing internet', description: 'I like websites', userID: '13'},
+    {id:'3', title: 'Swimming', description: 'I like water', userID: '211'},
+    {id:'4', title: 'Football', description: 'I like kicking ball', userID: '19'},
+    {id:'5', title: 'Painting', description: 'I like making pictures from a blank canvas', userID: '150'},
 ]
 
 let postData = [
-    {id:'11', comment: 'Books are awesome'},
-    {id:'22', comment: 'Visited reddit for the first time in years'},
-    {id:'33', comment: 'I saw a shark in the ocean'},
-    {id:'44', comment: 'Cant believe we let Chelsea win'},
-    {id:'55', comment: 'Art is an explosion'},
+    {id:'11', comment: 'Books are awesome', userID: '1'},
+    {id:'22', comment: 'Visited reddit for the first time in years', userID: '1'},
+    {id:'33', comment: 'I saw a shark in the ocean', userID: '19'},
+    {id:'44', comment: 'Cant believe we let Chelsea win', userID: '211'},
+    {id:'55', comment: 'Art is an explosion', userID: '1'},
 ]
 
 const {
@@ -30,6 +30,7 @@ const {
     GraphQLID,
     GraphQLString,
     GraphQLInt,
+    GraphQLList,
     GraphQLSchema
 } = graphql
 
@@ -41,7 +42,21 @@ const UserType = new GraphQLObjectType({
         id: {type: GraphQLString},
         name: {type: GraphQLString},
         age: {type: GraphQLInt},
-        profession: {type: GraphQLString}
+        profession: {type: GraphQLString},
+
+        posts:{
+            type: GraphQLList(PostType),
+            resolve(parent, args){
+                return _.filter(postData, {userID: parent.id})
+            }
+        },
+
+        hobbies:{
+            type: GraphQLList(HobbyType),
+            resolve(parent, args){
+                return _.filter(hobbiesData, {userID: parent.id})
+            }
+        }
     })
 })
 
@@ -51,7 +66,13 @@ const HobbyType = new GraphQLObjectType({
     fields: () => ({
         id: {type: GraphQLID},
         title: {type: GraphQLString},
-        description: {type: GraphQLString}
+        description: {type: GraphQLString},
+        user: {
+            type: UserType,
+            resolve(parent, args){
+                return _.find(userData, {id: parent.userID})
+            }
+        }
     })
 })
 
@@ -60,7 +81,13 @@ const PostType = new GraphQLObjectType({
     description: 'Post description',
     fields: () => ({
         id: {type: GraphQLID},
-        comment: {type: GraphQLString}
+        comment: {type: GraphQLString},
+        user: {
+            type: UserType,
+            resolve(parent, args){
+                return _.find(userData, {id: parent.userID})
+            }
+        }
     })
 })
 
