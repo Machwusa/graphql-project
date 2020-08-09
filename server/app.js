@@ -11,10 +11,10 @@ const port = process.env.PORT || 4000
 
 
 /*
-*mongodb+srv://User1:GKPMr4KQ2Pbc2sN7@cluster0.gnvaj.mongodb.net/<dbname>?retryWrites=true&w=majority
+*mongodb+srv://User1:GKPMr3KQ2Pbc2sN6@cluster0.gnvaj.mongodb.net/<dbname>?retryWrites=true&w=majority
 * */
 
-mongoose.connect('mongodb+srv://User1:GKPMr4KQ2Pbc2sN7@cluster0.gnvaj.mongodb.net/ProjectX?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://User1:GKPMr3KQ2Pbc2sN6@cluster0.gnvaj.mongodb.net/ProjectX?retryWrites=true&w=majority',
     {
         useNewUrlParser: true,
         useUnifiedTopology: true
